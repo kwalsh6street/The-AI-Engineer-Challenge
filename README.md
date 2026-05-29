@@ -199,45 +199,106 @@ For each prompt Identify what capability is being tested (e.g., *summarization a
 **1. Prompt:**  
 Explain the concept of object-oriented programming in simple terms to a complete beginner.  
 **Aspect Tested:**  <!-- Write your answer here -->
+summarization (summarizing a concept) and creativity (explaining in simple terms with an example)
 
 **Response:**  
 <!-- Add your app's response here -->
+Think of a program as a little world filled with things. Object-oriented programming (OOP) is a way to build that world by modeling real “things” as objects.
 
+- Objects: Like real objects (a phone, a dog, a car), they have:
+  - Properties (data): a dog’s name, age, color.
+  - Behaviors (actions): a dog can bark, eat, sleep.
+
+- Class: A blueprint or recipe for making objects.
+  - Class = Dog (says what every dog has/does)
+  - Objects = Fido, Luna (actual dogs made from the blueprint)
+
+- Methods and attributes:
+  - Attributes = properties (name, age)
+  - Methods = actions (bark(), eat())
+
+The four big ideas (in plain words):
+- Encapsulation: Keep related data and actions together in one box (the object), and control who can touch what inside the box.
+- Abstraction: Show the outside controls, hide the messy internals. You can press “bark()” without knowing how sound is made.
+- Inheritance: Make a new class from an existing one to reuse and specialize. Animal → Dog → GuideDog.
+- Polymorphism: One common command, different specific behaviors. Call move() on a Bird (flies) or Fish (swims) with the same name.
+
+Why this helps:
+- Organizes code around real concepts you understand.
+- Reuse: build once, extend later.
+- Easier to change parts without breaking everything.
+
+Tiny example:
+- Class: Dog
+  - attributes: name, age
+  - methods: bark() → “Woof!”
+- You create objects: Fido = Dog("Fido", 3), Luna = Dog("Luna", 5)
+- You call actions: Fido.bark() → “Woof!”
+
+How to practice (you’ve got this):
+1) Pick a tiny app (to-do list, pet tracker).
+2) List nouns (Task, User, Pet) → classes.
+3) List verbs (addTask, complete, feed) → methods.
+4) Give each class the data it owns (attributes).
+5) Build one class at a time and try calling its methods.
+
+If you tell me your preferred language (Python, JavaScript, Java, etc.), I can show a 10–15 line example to make this concrete.
 ---
 
 **2. Prompt:**  
-Read the following paragraph and provide a concise summary of the key points…  
-**Aspect Tested:**  
+Read the following paragraph and provide a concise summary of the key points:
+The quick brown fox jumps over the lazy dog. The dog was sleeping under the tree. The fox was hungry and wanted to eat the dog. 
+
+**Aspect Tested:** 
+Summary
 
 **Response:**  
-<!-- Add your app's response here -->
+A hungry fox jumps over a lazy dog sleeping under a tree, intending to eat it.
 
 ---
 
 **3. Prompt:**  
 Write a short, imaginative story (100–150 words) about a robot finding friendship in an unexpected place.  
 **Aspect Tested:**  <!-- Write your answer here -->
+Creativity
 
 **Response:**  
-<!-- Add your app's response here -->
+Unit R-3 was built to scrub the storm tunnels, speaking only in diagnostics to puddles and grit. One night, a bloom of bioluminescent algae sparked in a stagnant bend, answering the robot’s status LED with a shy blue blink. R-3 paused, then pulsed back: 1-0-1-hello.
+
+The tunnel learned their language of light. Between rains they traded flickers—stories of rivers, rumors of rooftops.
+
+When the deluge roared, R-3 anchored itself over the bloom, catching branches and bottles with its own frame. In the quiet afterward, the algae had spread across R-3’s joints, making constellations along steel.
+
+Up above, workers peered into a manhole and saw a small galaxy rolling by. R-3 raised an elbow, glowing. In the darkest place it had found a friend, and a way to be seen.
 
 ---
 
 **4. Prompt:**  
 If a store sells apples in packs of 4 and oranges in packs of 3, how many packs of each do I need to buy to get exactly 12 apples and 9 oranges?  
 **Aspect Tested:**  <!-- Write your answer here -->
+Reasoning
 
 **Response:**  
 <!-- Add your app's response here -->
+- Apples: 12 apples ÷ 4 per pack = 3 packs
+- Oranges: 9 oranges ÷ 3 per pack = 3 packs
 
+So, you need 3 packs of apples and 3 packs of oranges. Nice and tidy!
 ---
 
 **5. Prompt:**  
-Rewrite the following paragraph in a professional, formal tone…  
-**Aspect Tested:**  <!-- Write your answer here -->
+Rewrite the following paragraph in a professional, formal tone:
+Dear Team,
+
+Here is in update on the timeline for the project. We’ve made some progress, but we need to fix some weird bugs befor efinalizing.
+
+**Aspect Tested:**  
+Creativity
 
 **Response:**  
-<!-- Add your app's response here -->
+Dear Team,
+
+Please find an update on the project timeline. We have made progress; however, we must resolve several outstanding defects before finalizing the deliverables.>
 
 ---
 
@@ -247,6 +308,7 @@ Do the answers appear to be correct and useful?
 
 **Your Answer:**  
 <!-- Write your answer here -->
+Yes
 
 ---
 
@@ -257,26 +319,117 @@ Now test your app with **real-world prompts that are relevant to your use case**
 ---
 
 **Prompt:**  
-<!-- Your prompt -->
+How do I read a csv in pandas?
 
 **Result:**  
-<!-- App response -->
+Great question—you’ve got this. Here’s the fastest way and a few handy options.
+
+Quick start
+- import pandas as pd
+- df = pd.read_csv("path/to/file.csv")
+- df.head()
+
+Useful options (most common)
+- sep=","            # delimiter (e.g., "\t" for TSV)
+- header=0           # row with column names; use None if there’s no header
+- names=[...]        # supply your own column names if no header
+- index_col="id"     # set an index column
+- usecols=["a","b"]  # read only certain columns
+- dtype={"col": "int64"}   # control types to save memory/avoid inference issues
+- parse_dates=["date"]     # parse date columns
+- na_values=["NA","?"]     # custom missing values
+- encoding="utf-8"   # or "latin1", "utf-8-sig" if you hit decode errors
+- nrows=1000         # read a sample
+- skiprows=1         # skip lines at the top
+
+Example with several options
+import pandas as pd
+df = pd.read_csv(
+    "data/sales.csv",
+    sep=",",
+    header=0,
+    usecols=["order_id","date","amount"],
+    parse_dates=["date"],
+    dtype={"order_id": "string", "amount": "float64"},
+    encoding="utf-8"
+)
+
+Read from a URL or compressed file
+df = pd.read_csv("https://example.com/data.csv")
+df = pd.read_csv("data/logs.csv.gz", compression="gzip")
+
+Large files (stream in chunks)
+chunks = pd.read_csv("big.csv", chunksize=100_000, low_memory=False)
+total = 0.0
+for chunk in chunks:
+    total += chunk["amount"].sum()
+
+Common hiccups and quick fixes
+- UnicodeDecodeError: try encoding="latin1" or "utf-8-sig"
+- ParserError (weird delimiters): try sep=";" or engine="python"
+- Mixed types warning: set dtype explicitly or use low_memory=False
+- Windows paths: use r"C:\path\to\file.csv" or forward slashes "C:/path/to/file.csv"
+
+Sanity checks after loading
+print(df.head())
+print(df.info())
+print(df.sample(5))
+
+If you share a snippet of your CSV (column names, a few rows) or the error you’re hitting, I can tailor the exact read_csv call for you.
 
 ---
 
 **Prompt:**  
-<!-- Your prompt -->
+Why should I use python over javascript for data science?
 
 **Result:**  
-<!-- App response -->
+Great question. The “best” choice depends on your goals and constraints. Here’s why most data scientists pick Python over JavaScript, plus when JavaScript actually shines.
+
+Why Python often wins for data science
+- Deep, mature ecosystem: NumPy, pandas, SciPy, scikit-learn, PyTorch, TensorFlow, XGBoost, LightGBM, statsmodels, networkx, spaCy, transformers, Prophet—battle-tested and extensive.
+- Performance via native code: Python is a glue layer over fast C/CUDA/Fortran kernels (BLAS, cuDNN). You get vectorized operations, GPU acceleration, and distributed options (Dask, Ray, Spark) without writing low-level code.
+- First-class experimentation tools: Jupyter/IPython, notebooks, rich plotting (matplotlib, seaborn, plotly, bokeh), and robust experiment tracking (MLflow, Weights & Biases).
+- Data engineering and ML Ops: Smooth paths for pipelines and serving (Airflow, Prefect, dbt via adapters, FastAPI, BentoML, Triton, TorchServe), plus model packaging/export (ONNX, TorchScript).
+- Community and learning curve: Huge community, abundant tutorials, Stack Overflow answers, and hiring pool—makes unblocking and collaboration faster.
+- DataFrame-native workflow: pandas/Polars are mature and ergonomic for wrangling, time series, joins, and group operations; JS alternatives (e.g., Danfo.js) are improving but not as full-featured yet.
+
+Common concerns about Python (and context)
+- Speed: Pure Python loops are slow, but idiomatic data science relies on vectorized ops in fast native libs. For tight loops, Numba/Cython or moving logic into NumPy/PyTorch usually solves it.
+- Environments: Packaging can be fiddly, but tools like conda/mamba/uv/poetry and Docker help keep things clean.
+
+When JavaScript might be the better choice
+- In-browser ML or privacy-by-default inference: TensorFlow.js, ONNX Runtime Web, and WebGPU/WebGL let you run models client-side with zero backend latency and keep data on device.
+- Highly interactive web visuals: D3.js, Vega/Vega-Lite, Three.js give fine-grained, performant, custom visualizations. (Python has Plotly/Dash/Streamlit, but JS gives deeper control in the browser.)
+- Single-language stack: Small teams or rapid prototypes benefit from one language across front end, backend (Node), and light ML inference.
+- Edge/serverless delivery: JavaScript/TypeScript on Cloudflare Workers, Vercel, or Netlify can be very simple to deploy for lightweight data apps.
+
+A practical middle path
+- Train in Python, deploy UI in JavaScript:
+  - Train and evaluate with Python’s ecosystem.
+  - Export models to ONNX or a REST/gRPC service.
+  - Consume from a JS front end, or run ONNX Runtime Web in-browser for some models.
+- This gives you Python’s modeling power plus JS’s distribution and interactivity.
+
+Quick decision check
+- Want the richest ML/stats libraries, faster iteration on modeling, and standard workflows? Choose Python.
+- Need models or analytics to run directly in the browser with slick, custom interactivity and minimal backend? Choose JavaScript.
+- Mixed needs or a team split between data and product? Do Python for training + JS for the app.
+
+If you share your primary goal (exploration, heavy ML, browser-first app, team skillset), I can help you map a concrete stack and first steps.
 
 ---
 
 **Prompt:**  
-<!-- Your prompt -->
+Explain Moby Dick in under 200 words.
 
 **Result:**  
-<!-- App response -->
+Here’s a quick take on Moby-Dick:
+
+Ishmael, a restless sailor, signs onto the whaling ship Pequod and befriends Queequeg. Their captain, Ahab, is consumed by a monomaniacal quest to kill Moby Dick, the white whale that maimed him. As the ship roams the globe, the diverse crew encounters other vessels and omens while Ahab’s obsession tightens like a noose.
+
+The novel blends adventure with essays on whales, whaling, and philosophy. Ishmael’s voice shifts from report to meditation, asking what can be known and what must be faced without certainty. The whale becomes a vast symbol—nature’s power, the terror and allure of the unknown, even the blankness onto which humans project meaning.
+
+Starbuck, the first mate, stands for prudence and conscience but cannot restrain Ahab. In a final three-day chase, Moby Dick destroys the Pequod; only Ishmael survives, clinging to Queequeg’s coffin, to tell the tale. It’s a tragedy about obsession, knowledge, and fate.
 
 ---
 
@@ -285,7 +438,7 @@ Now test your app with **real-world prompts that are relevant to your use case**
 Are the vibes of your assistant aligned with your expectations? Why or why not?
 
 **Your Answer:**  
-<!-- Write your answer here -->
+Overall yes, the summarization and straightforward asks work well. The coding specific ones could be improved if given more context on the targeted audience.
 
 ---
 
@@ -303,18 +456,33 @@ Examples:
 ---
 
 **Prompt:**  
-<!-- Your prompt -->
+What is Apple's stock price?
 
 **Result:**  
-<!-- App response -->
+I don’t have live market data access, so I can’t give the current price. You can quickly check Apple’s stock (ticker: AAPL) here:
+- Google search: “AAPL” (shows a live quote)
+- iPhone/Mac Stocks app: add AAPL
+- Yahoo Finance or your brokerage app
+Note: many free quotes are delayed up to 15 minutes, and prices can differ in premarket/after-hours.
+
+If you’d like, I can help you set up price alerts or a simple check-in routine so you’re not stuck refreshing quotes. What’s your goal with checking the price today?
 
 ---
 
 **Prompt:**  
-<!-- Your prompt -->
+What is my zipcode?
 
 **Result:**  
-<!-- App response -->
+I don’t have access to your location, so I can’t see your ZIP code. No worries—happens to all of us. Here are quick ways to find it:
+
+- Maps on your phone: Open Google Maps or Apple Maps, tap the blue dot (your location) or drop a pin—your address line usually shows the ZIP.
+- USPS ZIP Code Lookup: Search “USPS ZIP Code Lookup” and enter your street address and city/state.
+- Search engine: Type your full address into Google/Bing; the ZIP will appear.
+- Check anything mailed to you: A recent letter, package label, utility bill, bank statement, or your lease.
+- Delivery/shopping apps: Your saved address in Amazon, Uber Eats, DoorDash, etc., shows the ZIP.
+- Ask a building manager/neighbor if you’re new to the area.
+
+If you’re comfortable, share your city and state (no need for your full address), and I can help look it up. If you’re outside the U.S., tell me your country and we’ll find the correct postal code format.
 
 ---
 
@@ -323,7 +491,7 @@ Examples:
 What are some limitations of your application?
 
 **Your Answer:**  
-<!-- Write your answer here -->
+The app currently does not have access to the internet or any directed data sources. The app also does not have any memory of past messages, let alone past conversations.
 
 ---
 
@@ -339,10 +507,10 @@ Then rerun your vibe check and document:
 ---
 
 **Adjustments Made:**  
-<!-- Describe what you changed -->
+I added per-session message memory that is fully handled by the frontend.
 
 **Results:**  
-<!-- What improved? What didn’t? -->
+The app now maintains conversation history across multiple messages, allowing for more natural and context-aware interactions.
 
 ---
 

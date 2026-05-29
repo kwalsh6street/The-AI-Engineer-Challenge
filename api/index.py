@@ -3,9 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from openai import OpenAI
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 app = FastAPI()
 
@@ -19,8 +16,12 @@ app.add_middleware(
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
+class ChatMessage(BaseModel):
+    role: str
+    content: str
+
 class ChatRequest(BaseModel):
-    message: str
+    messages: list[ChatMessage]
 
 @app.get("/")
 def root():
@@ -32,12 +33,12 @@ def chat(request: ChatRequest):
         raise HTTPException(status_code=500, detail="OPENAI_API_KEY not configured")
     
     try:
-        user_message = request.message
+        history = [{"role": m.role, "content": m.content} for m in request.messages]
         response = client.chat.completions.create(
             model="gpt-5",
             messages=[
                 {"role": "system", "content": "You are a supportive mental coach."},
-                {"role": "user", "content": user_message}
+                *history
             ]
         )
         return {"reply": response.choices[0].message.content}
