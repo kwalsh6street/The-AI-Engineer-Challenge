@@ -1,0 +1,4 @@
+# Don't bundle local secrets
+.env
+.env.*
+!.env.example
