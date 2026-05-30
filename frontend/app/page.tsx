@@ -85,7 +85,7 @@ export default function ChatPage() {
         {/* Header */}
         <header className="header">
           <h1>🧠 Mental Coach AI</h1>
-          <p>Your supportive, always-available mental coach</p>
+          <p>Your supportive mental coach powered by AI - built by kwalsh6street</p>
         </header>
 
         {/* Message list */}
