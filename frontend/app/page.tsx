@@ -9,7 +9,7 @@ interface Message {
 }
 
 // Backend base URL — set NEXT_PUBLIC_API_BASE_URL in .env.local for local dev
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
 
 export default function ChatPage() {
   const [messages, setMessages] = useState<Message[]>([]);
